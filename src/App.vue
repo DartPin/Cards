@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header class="header">
       <div class="date">
         <h4>
           <b>{{showDate}}</b>
@@ -9,6 +9,7 @@
       <h1 style="color: #0078bf">
         <b>New phrases for today</b>
       </h1>
+      <img class="help-img" src="src\assets\help.png" alt="Помощь" @click="helpOn()">
     </header>
 
     <div class="container">
@@ -22,7 +23,14 @@
             :key="msg.id"
             @click="cngLngFC(index)"
             @dblclick="deleteEventFC(index)"
+            :class="{rotate: item.lang}"
           >
+            <img
+              class="rot-img"
+              src="src\assets\rotate.png"
+              alt="поворот карты"
+              @click="cngLngFC(index)"
+            >
             <div class="card-body">
               <h5 class="card-title">{{item.theme}}</h5>
               <p class="card-text">{{item.sourceText}}</p>
@@ -38,7 +46,14 @@
             :key="seccol.index"
             @click="cngLngSC(index)"
             @dblclick="deleteEventSC(index)"
+            :class="{rotate: item.lang}"
           >
+            <img
+              class="rot-img"
+              src="src\assets\rotate.png"
+              alt="поворот карты"
+              @click="cngLngSC(index)"
+            >
             <div class="card-body">
               <h5 class="card-title">{{item.theme}}</h5>
               <p class="card-text">{{item.sourceText}}</p>
@@ -54,7 +69,14 @@
             :key="msg.id"
             @click="cngLngTC(index)"
             @dblclick="deleteEventTC(index)"
+            :class="{rotate: item.lang}"
           >
+            <img
+              class="rot-img"
+              src="src\assets\rotate.png"
+              alt="поворот карты"
+              @click="cngLngTC(index)"
+            >
             <div class="card-body">
               <h5 class="card-title">{{item.theme}}</h5>
               <p class="card-text">{{item.sourceText}}</p>
@@ -63,14 +85,26 @@
         </div>
       </div>
     </div>
+    <div>
+      <Help  :HelpActive="HelpActive" @value="HelpActive"></Help>
+    </div>
+    {{HelpActive}}
+    
   </div>
 </template>
 
 <script>
+import Help from './components/Help.vue'
+
 export default {
   name: "app",
+  components: {
+    Help
+  },
   data() {
     return {
+      HelpActive: "none",
+      isActive: false,
       msg: [
         {
           theme: "Conversation",
@@ -183,13 +217,14 @@ export default {
       firstcol: [],
       seccol: [],
       thirdcol: [],
+      text: "",
       clrs: ["", "#96a3f1", "#f19696", "#a1f196", "#717271"],
       showDate: "31 JAN"
     };
   },
   mounted: function() {
     var i = 0;
-    var fcl = Math.floor(Math.random() * 3) + 3;// Переменная для определения количества каточек в первом столбце
+    var fcl = Math.floor(Math.random() * 3) + 3; // Переменная для определения количества каточек в первом столбце
     //обработка перемешивания всех карточек в рандомном порядке
     function compareRandom(a, b) {
       return Math.random() - 0.5;
@@ -199,17 +234,23 @@ export default {
     //распределение карточек по трем столбцам
     for (i; i < this.msg.length - 1; i++) {
       if (i < fcl) {
+        this.msg[i].text = this.msg[i].sourceText;
+        this.msg[i].lang = true;
         this.msg[i].clr = this.clrs[Math.floor(Math.random() * 5)];
         this.firstcol.push(this.msg[i]);
       } else {
+        this.msg[i].text = this.msg[i].sourceText;
+        this.msg[i].lang = true;
         this.msg[i].clr = this.clrs[Math.floor(Math.random() * 5)];
         this.seccol.push(this.msg[i]);
         i++;
+        this.msg[i].text = this.msg[i].sourceText;
+        this.msg[i].lang = true;
         this.msg[i].clr = this.clrs[Math.floor(Math.random() * 5)];
         this.thirdcol.push(this.msg[i]);
       }
     }
-    // сортировка карточек в столбце 
+    // сортировка карточек в столбце
     this.firstcol.sort(function(a, b) {
       return a.sourceText.length - b.sourceText.length;
     });
@@ -233,40 +274,76 @@ export default {
     },
     //изменение языка по клику с русского на английский с возвращением английского языка через 3 секунды
     cngLngFC: function(index) {
+      var set;
       var stack = this.firstcol[index].sourceText;
-      this.firstcol[index].sourceText = this.firstcol[index].translation;
-      var self = this;
-      setTimeout(function() {
-        self.firstcol[index].sourceText = stack;
-      }, 3000);
+      if (this.firstcol[index].lang === true) {
+        this.firstcol[index].sourceText = this.firstcol[index].translation;
+        this.firstcol[index].lang = !this.firstcol[index].lang;
+        var self = this;
+        var set = setTimeout(function() {
+          self.firstcol[index].sourceText = stack;
+          self.firstcol[index].lang = !self.firstcol[index].lang;
+        }, 6000);
+      } else {
+        clearTimeout(set);
+      }
     },
     cngLngSC: function(index) {
+      var set;
       var stack = this.seccol[index].sourceText;
-      this.seccol[index].sourceText = this.seccol[index].translation;
-      var self = this;
-      setTimeout(function() {
-        self.seccol[index].sourceText = stack;
-      }, 3000);
+      if (this.seccol[index].lang === true) {
+        this.seccol[index].sourceText = this.seccol[index].translation;
+        this.seccol[index].lang = !this.seccol[index].lang;
+        var self = this;
+        var set = setTimeout(function() {
+          self.seccol[index].sourceText = stack;
+          self.seccol[index].lang = !self.seccol[index].lang;
+        }, 6000);
+      } else {
+        clearTimeout(set);
+      }
     },
     cngLngTC: function(index) {
+      var set;
       var stack = this.thirdcol[index].sourceText;
-      this.thirdcol[index].sourceText = this.thirdcol[index].translation;
-      var self = this;
-      setTimeout(function() {
-        self.thirdcol[index].sourceText = stack;
-      }, 3000);
+      if (this.thirdcol[index].lang === true) {
+        this.thirdcol[index].sourceText = this.thirdcol[index].translation;
+        this.thirdcol[index].lang = !this.thirdcol[index].lang;
+        var self = this;
+        var set = setTimeout(function() {
+          self.thirdcol[index].sourceText = stack;
+          self.thirdcol[index].lang = !self.thirdcol[index].lang;
+        }, 6000);
+      } else {
+        clearTimeout(set);
+        //this.thirdcol[index].sourceText = stack;
+        //alert(this.thirdcol[index].sourceText)
+        //this.thirdcol[index].lang = this.thirdcol[index].lang;
+      }
+    },
+    helpOn: function(){
+      this.HelpActive = "block"
     }
-  }
+  }  
 };
 </script>
 
 <style>
 .card {
+  position: relative;
+  transition: transform 1s ease;
+}
+.rotate {
+  transform: rotateY(360deg);
+}
+.card {
   margin: 0px 0px 10px 0px;
 }
-.card-body:hover {
-  background: #0078bf;
-  color: #fff;
+.card:hover {
+  padding: 15px;
+  box-shadow: 0px 0px 20px 4px #144d98;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .show {
   display: none;
@@ -281,5 +358,44 @@ h1 {
   margin: 50px 0 0 0;
   color: #ffffff;
   text-align: center;
+}
+.rot-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 20px;
+  margin-top: 20px;
+  width: 20px;
+  height: 20px;
+}
+.rot-img:hover {
+  cursor: pointer;
+}
+.help-img {
+  position: absolute;
+  right: 0;
+  margin: -80px 80px 0 0;
+}
+.header {
+  position: relative;
+}
+
+
+.b-popup {
+  width: 100%;
+  height: 2000px;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+}
+.b-popup .b-popup-content {
+  margin: 40px auto 0px auto;
+  width: 60%;
+  height: 60%px;
+  padding: 10px;
+  background-color: #e3f4f8;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 4px #144d98;
 }
 </style>
