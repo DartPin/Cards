@@ -1,6 +1,6 @@
 <template>
-    <div class="b-popup" v-bind:style="{display: HelpActive}">
-      <img class = "close-img" src="..\assets\close.png" alt="" @click="help()">
+    <div class="b-popup">
+      <img class = "close-img" src="..\assets\close.png" alt="" @click="On">
       <div class="b-popup-content">
         Описание и руководство к использованию <br>
         ● На основе предложенного макета в проекте создана HTML страница с тремя колонками для элементов с текстом, олицетворяющих карточки с лексикой. Структура карточки позволяет разместить текст заголовка и текст содержания. Карточки разного цвета, как продемонстрировано на макете. <br>
@@ -24,9 +24,9 @@ export default {
     return {
     };
   },
-  computed:{
-    help: function(){
-      this.HelpActive = "none";
+  methods:{
+    On: function(){
+      this.HelpActive = !this.HelpActive;
       this.$emit('value', this.HelpActive)
     }
   }

@@ -64,10 +64,10 @@
           <div
             class="card"
             style="width: 18rem;"
-            v-bind:style="{background: item.clr}"
-            v-for="(item, index) of thirdcol"
-            :key="msg.id"
-            @click="cngLngTC(index)"
+            v-bind:style = "{background: item.clr}"
+            v-for = "(item, index) of thirdcol"
+            :key = "msg.id"
+            @click = "cngLngTC(index)"
             @dblclick="deleteEventTC(index)"
             :class="{rotate: item.lang}"
           >
@@ -85,8 +85,8 @@
         </div>
       </div>
     </div>
-    <div>
-      <Help  :HelpActive="HelpActive" @value="HelpActive"></Help>
+    <div v-show='HelpActive'>
+      <Help :HelpActive = "HelpActive"  @value = 'HelpActive = $event'></Help>
     </div>
     {{HelpActive}}
     
@@ -103,7 +103,7 @@ export default {
   },
   data() {
     return {
-      HelpActive: "none",
+      HelpActive: false,
       isActive: false,
       msg: [
         {
@@ -321,9 +321,12 @@ export default {
         //this.thirdcol[index].lang = this.thirdcol[index].lang;
       }
     },
-    helpOn: function(){
-      this.HelpActive = "block"
+    helpOn(){
+      this.HelpActive = !this.HelpActive
     }
+  },
+  computed:{
+    
   }  
 };
 </script>
@@ -375,6 +378,11 @@ h1 {
   position: absolute;
   right: 0;
   margin: -80px 80px 0 0;
+  transition: transform 1s ease;
+  cursor: pointer;
+}
+.help-img:hover{
+  transform: rotateZ(360deg)
 }
 .header {
   position: relative;
