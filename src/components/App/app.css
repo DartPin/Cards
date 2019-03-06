@@ -1,6 +1,7 @@
 body{
     width: 100%;
     max-width: 3000px;
+    
 }
 .card {
     right: 0;
@@ -18,10 +19,20 @@ body{
 }
 
 .card:hover {
-    padding: 15px;
-    box-shadow: 0px 0px 20px 4px #144d98;
-    border-radius: 5px;
+    box-shadow: 0px 0px 2px 2px #144d98;
+    border-radius: 1px;
     cursor: pointer;
+}
+.circle-font{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);    
+    color: #ffffff;
+    font-size: 20px;
+    font-style: bold;
 }
 
 .show {
@@ -29,15 +40,15 @@ body{
 }
 
 h1 {
-    text-align: center;
-    margin: -50px 0 30px 0px;
+    text-align: left;
+    margin: -50px 0 30px 120px;
 }
 
 .date {
     width: 60px;
     height: 60px;
     background: #0078bf;
-    margin: 50px 0 0 0;
+    margin: 50px 0 0 20px;
     color: #ffffff;
     text-align: center;
 }
@@ -57,20 +68,21 @@ h1 {
 }
 
 .help-img {
-    position: absolute;
-    right: 0;
-    margin: -80px 80px 0 0;
-    transition: transform 1s ease;
-    cursor: pointer;
+    width: 40px;
+     height: 40px;
+     background: #0078bf;
+     position: absolute;
+     right: 0;
+     margin: -75px 80px 0 0;
+     cursor: pointer;
+     border-radius: 50%;
 }
 
 .help-img:hover {
     transform: rotateZ(360deg)
 }
 
-.header {
-    position: relative;
-}
+
 
 @media (min-width:730px) and (max-width: 991.98px) { 
     .col{        
@@ -101,5 +113,15 @@ h1 {
         cursor: pointer;
     }
     
+ }
+ .change-skin{
+     width: 40px;
+     height: 40px;
+     background: #0078bf;
+     position: absolute;
+     right: 0;
+     margin: -75px 130px 0 0;
+     cursor: pointer;
+     border-radius: 50%;
  }
 

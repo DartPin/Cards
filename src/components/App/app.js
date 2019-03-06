@@ -124,7 +124,33 @@ export default {
       seccol: [],
       thirdcol: [],
       text: "",
-      clrs: ["", "#96a3f1", "#f19696", "#a1f196", "#717271"]
+      clrs: [["#bb81b3", "#f0d4a5", "#f0ca29", "#b6c939", "#cc566e"],["#b3d8f5", "#c3127c", "#a72638", "#018ccf", "#009de0"],["#fefefe", "#cc566e", "#a6254c", "#8bbb89", "#9c79b1"]],
+      skin: 0,
+      backgroundClr: ["#fffadc","#fefefe", "#dbe9d8"],
+      backgroundClrs: [
+        {
+          background: "#fffadc",
+          cardclr: ["#bb81b3", "#f0d4a5", "#f0ca29", "#b6c939", "#cc566e"],
+          headerFontClr: "#30549e",
+          dateBack: "#32549c",
+          color: ""
+        },
+        {
+          background: "#fefefe",
+          cardclr: ["#b3d8f5", "#c3127c", "#a72638", "#018ccf", "#009de0"],
+          headerFontClr: "#32549b",
+          dateBack: "#c32228",
+          color: ""
+        },
+        {
+          background: "#dbe9d8",
+          cardclr: ["#fefefe", "#cc566e", "#a6254c", "#8bbb89", "#9c79b1"],
+          headerFontClr: "#5b5b5b",
+          dateBack: "#2a683f",
+          color: ""
+        }
+
+      ]
     };
   },
   mounted: function() {
@@ -141,17 +167,17 @@ export default {
       if (i < fcl) {
         this.msg[i].text = this.msg[i].sourceText;
         this.msg[i].lang = true;
-        this.msg[i].clr = this.clrs[Math.floor(Math.random() * 5)];
+        this.msg[i].clr = Math.floor(Math.random() * 5);
         this.firstcol.push(this.msg[i]);
       } else {
         this.msg[i].text = this.msg[i].sourceText;
         this.msg[i].lang = true;
-        this.msg[i].clr = this.clrs[Math.floor(Math.random() * 5)];
+        this.msg[i].clr = Math.floor(Math.random() * 5);
         this.seccol.push(this.msg[i]);
         i++;
         this.msg[i].text = this.msg[i].sourceText;
         this.msg[i].lang = true;
-        this.msg[i].clr = this.clrs[Math.floor(Math.random() * 5)];
+        this.msg[i].clr = Math.floor(Math.random() * 5);
         this.thirdcol.push(this.msg[i]);
       }
     }
@@ -236,7 +262,15 @@ export default {
     helpOn(){
       this.HelpActive = !this.HelpActive
     },
-
-
+    changeSkin:  function() {
+      this.skin += 1
+      if (this.skin === 3){
+        this.skin = 0;
+      }
+      
+    }
+  },
+  computed:{
+    
   }
 };

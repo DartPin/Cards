@@ -1,18 +1,17 @@
 <template>
-  <div id="app">
+  <div id="app" :style="{background: backgroundClrs[skin].background}">
     <header class="header">
-      <div class="date">
+      <div class="date" :style="{background: backgroundClrs[skin].dateBack}">
         <h4>
           <b>{{dateToday}}</b>
         </h4>
       </div>
-      <h1 style="color: #0078bf">
+      <h1 :style="{color: backgroundClrs[skin].headerFontClr}">
         <b>New Phrases for Today</b>
       </h1>
-      <img class="help-img" src="src\components\Img\help.png" alt="Помощь" @click="helpOn()">
+      <div class="change-skin" @click="changeSkin(skin)"> <div class="circle-font" style="padding: 0 0 3px 0" >skin</div> </div>
+      <div class="help-img" @click="helpOn()"> <div class="circle-font" style="font-weight: bold; font-size: 30px;" >?</div> </div>
     </header>
-
-    
 
     <div class="container">
       <div class="row">
@@ -20,7 +19,7 @@
           <div
             class="card"
             style="width: 18rem;"
-            :style="{background: item.clr}"
+            :style="{background: backgroundClrs[skin].cardclr[item.clr]}"
             v-for="(item, index) of firstcol"
             :key="msg.id"
             @click="cngLngFC(index)"
@@ -43,7 +42,7 @@
           <div
             class="card"
             style="width: 18rem;"
-            v-bind:style="{background: item.clr}"
+            v-bind:style="{background: backgroundClrs[skin].cardclr[item.clr]}"
             v-for="(item, index) of seccol"
             :key="seccol.index"
             @click="cngLngSC(index)"
@@ -66,7 +65,7 @@
           <div
             class="card"
             style="width: 18rem;"
-            v-bind:style="{background: item.clr}"
+            v-bind:style="{background: backgroundClrs[skin].cardclr[item.clr]}"
             v-for="(item, index) of thirdcol"
             :key="msg.id"
             @click="cngLngTC(index)"
