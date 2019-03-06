@@ -1,21 +1,27 @@
+html, body {
+    padding: 0;
+    margin: 0;
+  }
+
 body{
     width: 100%;
     max-width: 3000px;
     
+}
+.header{
+    padding: 50px 0 0 0;
 }
 .card {
     right: 0;
     left: 0;
     position: relative;
     transition: transform 1s ease;
+    margin: 0px 0px 10px 0px;
+    width: 18rem;
 }
 
 .rotate {
     transform: rotateY(360deg);
-}
-
-.card {
-    margin: 0px 0px 10px 0px;
 }
 
 .card:hover {
@@ -41,14 +47,17 @@ body{
 
 h1 {
     text-align: left;
-    margin: -50px 0 30px 120px;
+    width: 500px;
+    height: 60px;
+    margin: -60px 0 30px 80px;
+    padding: 5px 0 0 30px
 }
 
 .date {
     width: 60px;
     height: 60px;
     background: #0078bf;
-    margin: 50px 0 0 20px;
+    margin: 0px 0 0 20px;
     color: #ffffff;
     text-align: center;
 }
@@ -73,7 +82,7 @@ h1 {
      background: #0078bf;
      position: absolute;
      right: 0;
-     margin: -75px 80px 0 0;
+     margin: -85px 80px 0 0;
      cursor: pointer;
      border-radius: 50%;
 }
@@ -120,7 +129,7 @@ h1 {
      background: #0078bf;
      position: absolute;
      right: 0;
-     margin: -75px 130px 0 0;
+     margin: -85px 130px 0 0;
      cursor: pointer;
      border-radius: 50%;
  }

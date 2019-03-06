@@ -124,7 +124,6 @@ export default {
       seccol: [],
       thirdcol: [],
       text: "",
-      clrs: [["#bb81b3", "#f0d4a5", "#f0ca29", "#b6c939", "#cc566e"],["#b3d8f5", "#c3127c", "#a72638", "#018ccf", "#009de0"],["#fefefe", "#cc566e", "#a6254c", "#8bbb89", "#9c79b1"]],
       skin: 0,
       backgroundClr: ["#fffadc","#fefefe", "#dbe9d8"],
       backgroundClrs: [
@@ -133,24 +132,25 @@ export default {
           cardclr: ["#bb81b3", "#f0d4a5", "#f0ca29", "#b6c939", "#cc566e"],
           headerFontClr: "#30549e",
           dateBack: "#32549c",
-          color: ""
+          headerBackground: "#fffadc",
         },
         {
           background: "#fefefe",
-          cardclr: ["#b3d8f5", "#c3127c", "#a72638", "#018ccf", "#009de0"],
+          cardclr: ["#b3d8f5", "#c3127c", "#a72638", "#018ccf", "#35c3ff"],
           headerFontClr: "#32549b",
           dateBack: "#c32228",
-          color: ""
+          headerBackground: "#dcdcdc"
         },
         {
           background: "#dbe9d8",
           cardclr: ["#fefefe", "#cc566e", "#a6254c", "#8bbb89", "#9c79b1"],
           headerFontClr: "#5b5b5b",
           dateBack: "#2a683f",
-          color: ""
+          headerBackground: "#b4d2ae"
         }
 
-      ]
+      ],
+      collums:[[],[],[]]
     };
   },
   mounted: function() {
@@ -168,78 +168,53 @@ export default {
         this.msg[i].text = this.msg[i].sourceText;
         this.msg[i].lang = true;
         this.msg[i].clr = Math.floor(Math.random() * 5);
-        this.firstcol.push(this.msg[i]);
+        this.collums[0].push(this.msg[i]);
       } else {
         this.msg[i].text = this.msg[i].sourceText;
         this.msg[i].lang = true;
         this.msg[i].clr = Math.floor(Math.random() * 5);
-        this.seccol.push(this.msg[i]);
+        this.collums[1].push(this.msg[i]);
         i++;
         this.msg[i].text = this.msg[i].sourceText;
         this.msg[i].lang = true;
         this.msg[i].clr = Math.floor(Math.random() * 5);
-        this.thirdcol.push(this.msg[i]);
+        this.collums[2].push(this.msg[i]);
       }
+      
     }
     // сортировка карточек в столбце
-    this.firstcol.sort(function(a, b) {
-      return a.sourceText.length - b.sourceText.length;
+    this.collums.forEach(el => {
+      el.sort(function(a, b) {
+        return a.sourceText.length - b.sourceText.length;
+      });
     });
-    this.seccol.sort(function(a, b) {
-      return a.sourceText.length - b.sourceText.length;
-    });
-    this.thirdcol.sort(function(a, b) {
-      return a.sourceText.length - b.sourceText.length;
-    });
-        
-            var date = new Date();
-            var dayToday = date.getDate()
-            var monthToday = date.getMonth()
-            this.dateToday = dayToday + " " +this.months[monthToday]
+            
+    var date = new Date();
+    var dayToday = date.getDate()
+    var monthToday = date.getMonth()
+    this.dateToday = dayToday + " " +this.months[monthToday]
         
   },
   methods: {
     //удаление карточки по даблклику по столбцам
-    deleteEventFC: function(index) {
-      this.firstcol.splice(index, 1);
-    },
-    deleteEventSC: function(index) {
-      this.seccol.splice(index, 1);
-    },
-    deleteEventTC: function(index) {
-      this.thirdcol.splice(index, 1);
+    deleteEvent: function(index, ind) {
+      this.collums[ind].splice(index, 1);
     },
     //изменение языка по клику с русского на английский с возвращением английского языка через 3 секунды
-    cngLngFC: function(index) {
+    cngLng: function(index, ind) {
       var set;
-      var stack = this.firstcol[index].sourceText;
-      if (this.firstcol[index].lang === true) {
-        this.firstcol[index].sourceText = this.firstcol[index].translation;
-        this.firstcol[index].lang = !this.firstcol[index].lang;
+      var stack = this.collums[ind][index].sourceText;
+      if (this.collums[ind][index].lang === true) {        
+        this.collums[ind][index].sourceText = this.collums[ind][index].translation;
+        this.collums[ind][index].lang = !this.collums[ind][index].lang;   
         var self = this;
-        var set = setTimeout(function() {
-          self.firstcol[index].sourceText = stack;
-          self.firstcol[index].lang = !self.firstcol[index].lang;
-        }, 6000);
-      } else {
-        clearTimeout(set);
+        set = setTimeout(function() {
+          self.collums[ind][index].sourceText = stack;
+          self.collums[ind][index].lang = !self.collums[ind][index].lang;
+        }, 6000);     
       }
     },
-    cngLngSC: function(index) {
-      var set;
-      var stack = this.seccol[index].sourceText;
-      if (this.seccol[index].lang === true) {
-        this.seccol[index].sourceText = this.seccol[index].translation;
-        this.seccol[index].lang = !this.seccol[index].lang;
-        var self = this;
-        var set = setTimeout(function() {
-          self.seccol[index].sourceText = stack;
-          self.seccol[index].lang = !self.seccol[index].lang;
-        }, 6000);
-      } else {
-        clearTimeout(set);
-      }
-    },
+    
     cngLngTC: function(index) {
       var set;
       var stack = this.thirdcol[index].sourceText;
