@@ -1,16 +1,17 @@
 html, body {
     padding: 0;
     margin: 0;
-  }
+}
 
-body{
+body {
     width: 100%;
     max-width: 3000px;
-    
 }
-.header{
+
+.header {
     padding: 50px 0 0 0;
 }
+
 .card {
     right: 0;
     left: 0;
@@ -30,13 +31,14 @@ body{
     border-radius: 1px;
     cursor: pointer;
 }
-.circle-font{
+
+.circle-font {
     margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
-    transform: translate(-50%, -50%);    
+    transform: translate(-50%, -50%);
     color: #ffffff;
     font-size: 20px;
     font-style: bold;
@@ -73,7 +75,7 @@ h1 {
     height: 20px;
 }
 
-.edit-img{
+.edit-img {
     position: absolute;
     top: 0;
     right: 0;
@@ -89,40 +91,39 @@ h1 {
 
 .help-img {
     width: 40px;
-     height: 40px;
-     background: #0078bf;
-     position: absolute;
-     right: 0;
-     margin: -85px 80px 0 0;
-     cursor: pointer;
-     border-radius: 50%;
+    height: 40px;
+    background: #0078bf;
+    position: absolute;
+    right: 0;
+    margin: -85px 80px 0 0;
+    cursor: pointer;
+    border-radius: 50%;
 }
 
 .help-img:hover {
     transform: rotateZ(360deg)
 }
 
-
-
-@media (min-width:730px) and (max-width: 991.98px) { 
-    .col{        
+@media (min-width:730px) and (max-width: 991.98px) {
+    .col {
         border-bottom-width: 1px;
         border-bottom-color: #92b4e0;
         border-bottom-style: solid;
         margin-top: 10px;
     }
-    .container{
+    .container {
         width: 350px
     }
- }
- @media (max-width:729px) { 
-    .col{        
+}
+
+@media (max-width:729px) {
+    .col {
         border-bottom-width: 1px;
         border-bottom-color: #92b4e0;
         border-bottom-style: solid;
         margin-top: 10px;
     }
-    .container{
+    .container {
         width: 350px
     }
     .help-img {
@@ -132,19 +133,20 @@ h1 {
         transition: transform 1s ease;
         cursor: pointer;
     }
-    
- }
- .change-skin{
-     width: 40px;
-     height: 40px;
-     background: #0078bf;
-     position: absolute;
-     right: 0;
-     margin: -85px 130px 0 0;
-     cursor: pointer;
-     border-radius: 50%;
- }
- .new-card{
+}
+
+.change-skin {
+    width: 40px;
+    height: 40px;
+    background: #0078bf;
+    position: absolute;
+    right: 0;
+    margin: -85px 130px 0 0;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.new-card {
     width: 40px;
     height: 40px;
     background: #0078bf;
@@ -155,17 +157,24 @@ h1 {
     border-radius: 50%;
 }
 
- .slide-fade-leave-active {
+.slide-fade-leave-active {
     transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .del
-/* .slide-fade-leave-active до версии 2.1.8 */ {
-  transform: translate(50px);
-  
 }
+
+.del
+/* .slide-fade-leave-active до версии 2.1.8 */
+
+    {
+    transform: translate(50px);
+}
+
 .fade-enter-active, .fade-leave-active {
     transition: opacity 2s
- }
- .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+}
+
+.fade-enter, .fade-leave-to
+/* .fade-leave-active below version 2.1.8 */
+
+    {
     opacity: 0
- }
+}

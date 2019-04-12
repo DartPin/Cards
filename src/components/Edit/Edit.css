@@ -7,8 +7,9 @@
     top: 0px;
     overflow-y: visible;
     text-transform: uppercase;
-  }
-  .edit-win .edit-win-content {
+}
+
+.edit-win .edit-win-content {
     margin: 40px auto 0px auto;
     width: 60%;
     height: 60%px;
@@ -17,11 +18,13 @@
     border-radius: 5px;
     box-shadow: 0px 0px 20px 4px #144d98;
 }
-.text-header{
+
+.text-header {
     text-align: center;
-    font-weight:bold;
+    font-weight: bold;
     margin: 10px 0 20px 0;
 }
-.input-group-prepend .input-group-text{
+
+.input-group-prepend .input-group-text {
     width: 230px;
 }

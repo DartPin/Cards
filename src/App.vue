@@ -6,17 +6,33 @@
           <b>{{dateToday}}</b>
         </h4>
       </div>
-      <h1 :style="{color: backgroundClrs[skin].headerFontClr, background: backgroundClrs[skin].headerBackground}">
+      <h1
+        :style="{color: backgroundClrs[skin].headerFontClr, background: backgroundClrs[skin].headerBackground}"
+      >
         <b>New Phrases for Today</b>
       </h1>
-      <div class="new-card" @click="addOn()" :style="{background: backgroundClrs[skin].dateBack}"> <div class="circle-font" style="font-size: 15px; padding: 0 2px 3px 0" >+new</div> </div>
-      <div class="change-skin" @click="changeSkin(skin)" :style="{background: backgroundClrs[skin].dateBack}"> <div class="circle-font" style="padding: 0 0 3px 0" >skin</div> </div>
-      <div class="help-img" @click="helpOn()" :style="{background: backgroundClrs[skin].dateBack}"> <div class="circle-font" style="font-weight: bold; font-size: 30px;" >?</div> </div>
+      <div class="new-card" @click="addOn()" :style="{background: backgroundClrs[skin].dateBack}">
+        <div class="circle-font" style="font-size: 15px; padding: 0 2px 3px 0">+new</div>
+      </div>
+      <div
+        class="change-skin"
+        @click="changeSkin(skin)"
+        :style="{background: backgroundClrs[skin].dateBack}"
+      >
+        <div class="circle-font" style="padding: 0 0 3px 0">skin</div>
+      </div>
+      <div class="help-img" @click="helpOn()" :style="{background: backgroundClrs[skin].dateBack}">
+        <div class="circle-font" style="font-weight: bold; font-size: 30px;">?</div>
+      </div>
     </header>
 
     <div class="container">
       <div class="row">
-        <div class="col col-sm-12 col-md-12 col-lg-4 col-xl-4" v-for="(col, ind) of collums" :key="col.id">
+        <div
+          class="col col-sm-12 col-md-12 col-lg-4 col-xl-4"
+          v-for="(col, ind) of collums"
+          :key="col.id"
+        >
           <div
             class="card"
             :style="{background: backgroundClrs[skin].cardclr[item.clr]}"
@@ -24,7 +40,7 @@
             :key="item.id"
             @dblclick="deleteEvent(index, ind)"
             :class="{rotate: item.lang, del: item.leave}"
-          > 
+          >
             <img
               class="edit-img"
               src="src\components\Img\edit.png"
@@ -47,11 +63,16 @@
       </div>
     </div>
     <div v-if="showEdit">
-      <Edit :editItem="editItem" :collums="collums" @value="collums = $event" @valcan="showEdit = $event"></Edit>
+      <Edit
+        :editItem="editItem"
+        :collums="collums"
+        @value="collums = $event"
+        @valcan="showEdit = $event"
+      ></Edit>
     </div>
 
     <div v-show="addActive">
-      <AddCard :collums="collums" @value="collums = $event" @valcan="addActive = $event" ></AddCard>
+      <AddCard :collums="collums" @value="collums = $event" @valcan="addActive = $event"></AddCard>
     </div>
     <div v-show="HelpActive">
       <Help :HelpActive="HelpActive" @value="HelpActive = $event"></Help>
