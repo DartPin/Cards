@@ -18,6 +18,7 @@ body{
     transition: transform 1s ease;
     margin: 0px 0px 10px 0px;
     width: 18rem;
+    transition: transform .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
 
 .rotate {
@@ -67,6 +68,16 @@ h1 {
     top: 0;
     right: 0;
     margin-right: 20px;
+    margin-top: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.edit-img{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 40px;
     margin-top: 20px;
     width: 20px;
     height: 20px;
@@ -133,4 +144,28 @@ h1 {
      cursor: pointer;
      border-radius: 50%;
  }
+ .new-card{
+    width: 40px;
+    height: 40px;
+    background: #0078bf;
+    position: absolute;
+    right: 0;
+    margin: -85px 180px 0 0;
+    cursor: pointer;
+    border-radius: 50%;
+}
 
+ .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .del
+/* .slide-fade-leave-active до версии 2.1.8 */ {
+  transform: translate(50px);
+  
+}
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 2s
+ }
+ .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0
+ }

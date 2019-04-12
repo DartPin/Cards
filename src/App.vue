@@ -9,6 +9,7 @@
       <h1 :style="{color: backgroundClrs[skin].headerFontClr, background: backgroundClrs[skin].headerBackground}">
         <b>New Phrases for Today</b>
       </h1>
+      <div class="new-card" @click="addOn()" :style="{background: backgroundClrs[skin].dateBack}"> <div class="circle-font" style="font-size: 15px; padding: 0 2px 3px 0" >+new</div> </div>
       <div class="change-skin" @click="changeSkin(skin)" :style="{background: backgroundClrs[skin].dateBack}"> <div class="circle-font" style="padding: 0 0 3px 0" >skin</div> </div>
       <div class="help-img" @click="helpOn()" :style="{background: backgroundClrs[skin].dateBack}"> <div class="circle-font" style="font-weight: bold; font-size: 30px;" >?</div> </div>
     </header>
@@ -21,10 +22,16 @@
             :style="{background: backgroundClrs[skin].cardclr[item.clr]}"
             v-for="(item, index) of col"
             :key="item.id"
-            @click="cngLng(index, ind)"
             @dblclick="deleteEvent(index, ind)"
-            :class="{rotate: item.lang}"
+            :class="{rotate: item.lang, del: item.leave}"
           > 
+            <img
+              class="edit-img"
+              src="src\components\Img\edit.png"
+              alt="поворот карты"
+              @click="editCard(index, ind)"
+              :class="{ del: item.leave}"
+            >
             <img
               class="rot-img"
               src="src\components\Img\rotate.png"
@@ -39,8 +46,13 @@
         </div>
       </div>
     </div>
+    <div v-if="showEdit">
+      <Edit :editItem="editItem" :collums="collums" @value="collums = $event" @valcan="showEdit = $event"></Edit>
+    </div>
 
-    
+    <div v-show="addActive">
+      <AddCard :collums="collums" @value="collums = $event" @valcan="addActive = $event" ></AddCard>
+    </div>
     <div v-show="HelpActive">
       <Help :HelpActive="HelpActive" @value="HelpActive = $event"></Help>
     </div>
