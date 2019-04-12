@@ -5,7 +5,7 @@
 > Сеоверная часть проекта находится в репозитории https://github.com/DartPin/Card-server
 
 
-![Image alt](https://github.com/DartPin/Cards/screen.jpg)
+![Image alt](https://github.com/DartPin/Cards/blob/master/screen.jpg)
 
 {username} — ваш ник на ГитХабе;
 {repository} — репозиторий где хранятся картинки;
