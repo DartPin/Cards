@@ -1,5 +1,6 @@
 <template>
   <div id="app" :style="{background: backgroundClrs[skin].background}">
+   `<!-- отображение заголовка с кнопками изменения скинов и добавления новых карточек -->  
     <header class="header">
       <div class="date" :style="{background: backgroundClrs[skin].dateBack}">
         <h4>
@@ -26,6 +27,7 @@
       </div>
     </header>
 
+    <!-- основное отображение карт -->
     <div class="container">
       <div class="row">
         <div
@@ -62,6 +64,8 @@
         </div>
       </div>
     </div>
+
+    <!-- окно редактирования карты -->
     <div v-if="showEdit">
       <Edit
         :editItem="editItem"
@@ -71,9 +75,13 @@
       ></Edit>
     </div>
 
+
+    <!-- окно создания карты -->
     <div v-show="addActive">
       <AddCard :collums="collums" @value="collums = $event" @valcan="addActive = $event"></AddCard>
     </div>
+
+    <!-- окно описания функционала -->
     <div v-show="HelpActive">
       <Help :HelpActive="HelpActive" @value="HelpActive = $event"></Help>
     </div>

@@ -12,14 +12,12 @@ export default {
   },
   data() {
     return {
-      dateToday: "",
-      HelpActive: false,
-      addActive: false,
-      isActive: false,
-      msg: "",
-      months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-      text: "",
-      skin: 0,
+      dateToday: "", // получит значение даты при загрузке приложения
+      HelpActive: false, // отвечает за то показано ли окно помощи или нет
+      addActive: false, // отвечает за то показано ли окно добавления карты или нет
+      msg: "", // получит значение массива карт с сервера при загрузке приложения
+      months: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"], 
+      skin: 0, // порядковый номер скина для прилодения
       backgroundClrs: [
         {
           background: "#fffadc",
@@ -43,18 +41,19 @@ export default {
           headerBackground: "#b4d2ae"
         }
 
-      ],
-      collums: [[], [], []],
-      editItem: {},
-      showEdit: false,
-      leave: false
+      ],//массив свойств скинов для приложения
+      collums: [[], [], []], // пустой массив куда распределятся данные карточек с сервера
+      editItem: {}, // получит свойства с окна изменения карты
+      showEdit: false, // отвечает за то показано ли окно редактированя карты или нет
     };
   },
+
+  // обработка событий при загрузке приложения
+
   mounted: function () {
     axios.get("http://localhost:8081/").then(response => {
-      this.msg = response.data;
-
-      var i = 0;
+      this.msg = response.data; // получаем данные с сервера
+ 
       var fcl = Math.floor(Math.random() * 3) + 3; // Переменная для определения количества каточек в первом столбце
       //обработка перемешивания всех карточек в рандомном порядке
       function compareRandom(a, b) {
@@ -63,35 +62,36 @@ export default {
 
       this.msg.sort(compareRandom);
       //распределение карточек по трем столбцам
-      for (i; i < this.msg.length - 1; i++) {
-        if (i < fcl) {
+      for (var i=0; i < this.msg.length - 1; i++) {
+        if (i < fcl) { //если i  меньше fcl то добавляем в первый столбец
+          this.msg[i].text = this.msg[i].sourceText; 
+          this.msg[i].lang = true;
+          this.msg[i].clr = Math.floor(Math.random() * 5); //присваиваем рандомное значение фона
+          this.msg[i].leave = false;
+          this.collums[0].push(this.msg[i]); // добавляем в первую колонку
+        } else { // если i больше чем мест в первой колонке то поочереди добавляем во вторую и третью
           this.msg[i].text = this.msg[i].sourceText;
           this.msg[i].lang = true;
           this.msg[i].clr = Math.floor(Math.random() * 5);
           this.msg[i].leave = false;
-          this.collums[0].push(this.msg[i]);
-        } else {
-          this.msg[i].text = this.msg[i].sourceText;
-          this.msg[i].lang = true;
-          this.msg[i].clr = Math.floor(Math.random() * 5);
-          this.msg[i].leave = false;
-          this.collums[1].push(this.msg[i]);
+          this.collums[1].push(this.msg[i]); //добавление во вторую колонку
           i++;
           this.msg[i].text = this.msg[i].sourceText;
           this.msg[i].lang = true;
           this.msg[i].clr = Math.floor(Math.random() * 5);
           this.msg[i].leave = false;
-          this.collums[2].push(this.msg[i]);
+          this.collums[2].push(this.msg[i]); //добавление в третью колонку
         }
 
       }
-      // сортировка карточек в столбце
+      // сортировка карточек в столбце по длинне текста на английском языке от меньшего к большему
       this.collums.forEach(el => {
         el.sort(function (a, b) {
           return a.sourceText.length - b.sourceText.length;
         });
       });
 
+      // получение и обработка значения даты для заголовка
       var date = new Date();
       var dayToday = date.getDate()
       var monthToday = date.getMonth()
@@ -108,15 +108,15 @@ export default {
     //изменение языка по клику с русского на английский с возвращением английского языка через 3 секунды
     cngLng: function (index, ind) {
       var set;
-      var stack = this.collums[ind][index].sourceText;
-      if (this.collums[ind][index].lang === true) {
-        this.collums[ind][index].sourceText = this.collums[ind][index].translation;
-        this.collums[ind][index].lang = !this.collums[ind][index].lang;
+      var stack = this.collums[ind][index].sourceText; //сохраняем значение текста на английском
+      if (this.collums[ind][index].lang === true) { // если сейчас текст на английском
+        this.collums[ind][index].sourceText = this.collums[ind][index].translation; // переводим на русский
+        this.collums[ind][index].lang = !this.collums[ind][index].lang; //передаем значение false или true в стиль карточки для ее поворота
         var self = this;
         set = setTimeout(function () {
-          self.collums[ind][index].sourceText = stack;
-          self.collums[ind][index].lang = !self.collums[ind][index].lang
-        }, 6000);
+          self.collums[ind][index].sourceText = stack; //возвращаем английский язык
+          self.collums[ind][index].lang = !self.collums[ind][index].lang // передаем значение false или true в стиль карточки для ее поворота
+        }, 3000);
       }
     },
 
@@ -125,16 +125,20 @@ export default {
     helpOn() {
       this.HelpActive = !this.HelpActive
     },
+    // вывод окна редактирования карты
     addOn() {
       this.addActive = !this.addActive
     },
+
+    // обработчик изменения скина приложения
     changeSkin: function () {
       this.skin += 1
-      if (this.skin === 3) {
+      if (this.skin === 3) { // если достигает последнего скина то следующий снова будет первый
         this.skin = 0;
       }
-
     },
+
+    // получение значения редактируемой карты и открытие окна редактирования
     editCard(index, ind) {
       this.editItem.theme = this.collums[ind][index].theme;
       this.editItem.sourceText = this.collums[ind][index].sourceText;
@@ -143,8 +147,5 @@ export default {
       this.editItem.ind = ind;
       this.showEdit = true
     }
-  },
-  computed: {
-
   }
 };
